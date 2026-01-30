@@ -37,5 +37,13 @@ router.delete(
   ProviderController.deleteMeal
 );
 
+// update the Order status
+router.patch(
+  "/orders/:id",
+  auth,
+  providerOnly,
+  ProviderController.updateOrderStatus
+);
+
 
 export default router;

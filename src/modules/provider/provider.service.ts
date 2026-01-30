@@ -1,3 +1,4 @@
+import { OrderStatus } from "../../../generated/prisma/enums";
 import prisma from "../../lib/prisma";
 
 // Create provider profile 
@@ -119,5 +120,17 @@ export const deleteMeal = async (user: any, mealId: string) => {
   // delete
   return prisma.meal.delete({
     where: { id: mealId },
+  });
+};
+
+// update the Order status
+export const updateOrderStatus = async (
+  user: any,
+  orderId: string,
+  status: OrderStatus
+) => {
+  return prisma.order.update({
+    where: { id: orderId },
+    data: { status },
   });
 };

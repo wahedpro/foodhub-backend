@@ -1,5 +1,6 @@
-import { Response, Request } from "express";
+import { Response, } from "express";
 import * as ProviderService from "../provider/provider.service"
+import { OrderStatus } from "../../../generated/prisma/enums";
 
 // Create provider profile
 export const createProviderProfile = async (req: any, res: Response) => {
@@ -54,5 +55,22 @@ export const deleteMeal = async (
   res.status(200).json({
     success: true,
     message: "Meal deleted successfully",
+  });
+};
+
+// update the Order status
+export const updateOrderStatus = async (req: any, res: Response) => {
+  const status = req.body.status as OrderStatus;
+
+  const result = await ProviderService.updateOrderStatus(
+    req.user,
+    req.params.id,
+    status
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Order status updated successfully",
+    data: result,
   });
 };
