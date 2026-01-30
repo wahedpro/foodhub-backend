@@ -21,4 +21,14 @@ router.post(
   ProviderController.addMeal
 );
 
+// Update Meal
+router.put(
+  "/meals/:id",
+  auth,
+  providerOnly,
+  ProviderController.updateMeal
+);
+
+
+
 export default router;
