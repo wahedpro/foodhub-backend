@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./modules/auth/auth.route";
 import providerRoutes from "../src/modules/provider/provider.route";
+import providerPublicRoutes from "./modules/providerPublic/providerPublic.route";
 import mealRoutes from "./modules/meal/meal.route";
 import cors from "cors";
 
@@ -11,5 +12,6 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/v1/provider", providerRoutes);
 app.use("/api/meals", mealRoutes);
+app.use("/api/providers", providerPublicRoutes);
 
 export default app;
