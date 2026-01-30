@@ -24,6 +24,7 @@ export const getAllMeals = async (query: any) => {
       provider: {
         select: {
           id: true,
+          userId: true,
           restaurant: true,
         },
       },
