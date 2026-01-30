@@ -58,3 +58,29 @@ export const createOrder = async (user: any, payload: any) => {
 
   return order;
 };
+
+
+export const getMyOrders = async (user: any) => {
+  return prisma.order.findMany({
+    where: {
+      customerId: user.id,
+    },
+    include: {
+      items: {
+        include: {
+          meal: {
+            select: {
+              id: true,
+              name: true,
+              price: true,
+              image: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+};

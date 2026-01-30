@@ -10,3 +10,12 @@ export const createOrder = async (req: any, res: Response) => {
     data: result,
   });
 };
+
+export const getMyOrders = async (req: any, res: Response) => {
+  const orders = await OrderService.getMyOrders(req.user);
+
+  res.status(200).json({
+    success: true,
+    data: orders,
+  });
+};
