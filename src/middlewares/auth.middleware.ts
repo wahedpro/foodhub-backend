@@ -47,10 +47,21 @@ export const auth = (req: any, res: Response, next: NextFunction) => {
   next();
 };
 
+// Only Provider Role
 export const providerOnly = (req: any, res: Response, next: NextFunction) => {
   if (req.user.role !== "PROVIDER") {
     return res.status(403).json({
       message: "Only provider can add meals",
+    });
+  }
+  next();
+};
+
+// Only Admin Role:
+export const adminOnly = (req: any, res: Response, next: NextFunction) => {
+  if (req.user.role !== "ADMIN") {
+    return res.status(403).json({
+      message: "Admin access only",
     });
   }
   next();
