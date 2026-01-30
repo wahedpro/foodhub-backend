@@ -27,7 +27,6 @@ export const addMeal = async (req: any, res: Response) => {
 };
 
 // Update Meal
-
 export const updateMeal = async (
   req: any,
   res: Response
@@ -42,5 +41,18 @@ export const updateMeal = async (
     success: true,
     message: "Meal updated successfully",
     data: result,
+  });
+};
+
+// Delete Meal
+export const deleteMeal = async (
+  req: any,
+  res: Response
+) => {
+  await ProviderService.deleteMeal(req.user, req.params.id);
+
+  res.status(200).json({
+    success: true,
+    message: "Meal deleted successfully",
   });
 };

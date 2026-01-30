@@ -29,6 +29,13 @@ router.put(
   ProviderController.updateMeal
 );
 
+// Delete Meal
+router.delete(
+  "/meals/:id",
+  auth,
+  providerOnly,
+  ProviderController.deleteMeal
+);
 
 
 export default router;

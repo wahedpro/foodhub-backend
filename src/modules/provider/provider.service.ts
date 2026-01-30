@@ -57,7 +57,7 @@ export const updateMeal = async (
   mealId: string,
   payload: any
 ) => {
-  // 1️⃣ provider profile check
+  // provider profile check
   const providerProfile = await prisma.providerProfile.findUnique({
     where: { userId: user.id },
   });
@@ -66,7 +66,7 @@ export const updateMeal = async (
     throw new Error("Provider profile not found");
   }
 
-  // 2️⃣ meal exists & ownership check
+  //  meal exists & ownership check
   const meal = await prisma.meal.findUnique({
     where: { id: mealId },
   });
@@ -79,7 +79,7 @@ export const updateMeal = async (
     throw new Error("You are not allowed to update this meal");
   }
 
-  // 3️⃣ PUT = full update (সব field পাঠানো উচিত)
+  //  PUT = full update 
   return prisma.meal.update({
     where: { id: mealId },
     data: {
@@ -89,5 +89,35 @@ export const updateMeal = async (
       image: payload.image,
       categoryId: payload.categoryId,
     },
+  });
+};
+
+// Delete Meal
+export const deleteMeal = async (user: any, mealId: string) => {
+  //  provider profile
+  const providerProfile = await prisma.providerProfile.findUnique({
+    where: { userId: user.id },
+  });
+
+  if (!providerProfile) {
+    throw new Error("Provider profile not found");
+  }
+
+  //  meal + ownership check
+  const meal = await prisma.meal.findUnique({
+    where: { id: mealId },
+  });
+
+  if (!meal) {
+    throw new Error("Meal not found");
+  }
+
+  if (meal.providerId !== providerProfile.id) {
+    throw new Error("You are not allowed to delete this meal");
+  }
+
+  // delete
+  return prisma.meal.delete({
+    where: { id: mealId },
   });
 };
