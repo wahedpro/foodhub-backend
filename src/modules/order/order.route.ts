@@ -10,4 +10,7 @@ router.post("/", auth, OrderController.createOrder);
 // get user's orders
 router.get("/", auth, OrderController.getMyOrders);
 
+// get order details by id
+router.get("/:id", auth, OrderController.getOrderById);
+
 export default router;

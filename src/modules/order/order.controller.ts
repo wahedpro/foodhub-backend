@@ -19,3 +19,16 @@ export const getMyOrders = async (req: any, res: Response) => {
     data: orders,
   });
 };
+
+
+export const getOrderById = async (
+  req: any,
+  res: Response
+) => {
+  const order = await OrderService.getOrderById(req.user, req.params.id);
+
+  res.status(200).json({
+    success: true,
+    data: order,
+  });
+};
