@@ -7,6 +7,7 @@ import mealRoutes from "./modules/meal/meal.route";
 import categoryRoutes from "./modules/category/category.route";
 import reviewRoutes from "./modules/review/review.route";
 import orderRoutes from "./modules/order/order.route";
+import userRoutes from "./modules/user/user.route";
 import cors from "cors";
 
 const app = express();
@@ -21,5 +22,6 @@ app.use("/api/admin", adminPoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/users", userRoutes);
 
 export default app;
