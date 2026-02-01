@@ -5,6 +5,7 @@ import providerPublicRoutes from "./modules/providerPublic/providerPublic.route"
 import adminPoutes from "./modules/admin/admin.route"
 import mealRoutes from "./modules/meal/meal.route";
 import categoryRoutes from "./modules/category/category.route";
+import reviewRoutes from "./modules/review/review.route";
 import orderRoutes from "./modules/order/order.route";
 import cors from "cors";
 
@@ -19,5 +20,6 @@ app.use("/api/providers", providerPublicRoutes);
 app.use("/api/admin", adminPoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 export default app;
