@@ -53,9 +53,5 @@ export const getMealById = async (id: string) => {
     },
   });
 
-  if (!meal) {
-    throw new Error("Meal not found");
-  }
-
   return meal;
 };

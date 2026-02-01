@@ -14,14 +14,22 @@ export const getAllMeals = async (req: Request, res: Response) => {
 
 // get single meal here
 type IdParams = { id: string };
+
 export const getMealById = async (
   req: Request<IdParams>,
   res: Response
 ) => {
-  const meal = await MealService.getMealById(req.params.id);
+  try {
+    const meal = await MealService.getMealById(req.params.id);
 
-  res.status(200).json({
-    success: true,
-    data: meal,
-  });
+    res.status(200).json({
+      success: true,
+      data: meal,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "Meal not found",
+    });
+  }
 };
