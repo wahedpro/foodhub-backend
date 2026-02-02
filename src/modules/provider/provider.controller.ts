@@ -59,18 +59,44 @@ export const deleteMeal = async (
 };
 
 // update the Order status
-export const updateOrderStatus = async (req: any, res: Response) => {
-  const status = req.body.status as OrderStatus;
+// export const updateOrderStatus = async (req: any, res: Response) => {
+//   const status = req.body.status as OrderStatus;
 
-  const result = await ProviderService.updateOrderStatus(
-    req.user,
+//   const result = await ProviderService.updateOrderStatus(
+//     req.user,
+//     req.params.id,
+//     status
+//   );
+
+//   res.status(200).json({
+//     success: true,
+//     message: "Order status updated successfully",
+//     data: result,
+//   });
+// };
+
+
+export const getIncomingOrders = async (req: any, res: Response) => {
+  const orders = await ProviderService.getIncomingOrders(req.user.id);
+
+  res.json({
+    success: true,
+    data: orders,
+  });
+};
+
+export const updateOrderStatus = async (req: any, res: Response) => {
+  const { status } = req.body;
+
+  const order = await ProviderService.updateOrderStatus(
+    req.user.id,
     req.params.id,
     status
   );
 
-  res.status(200).json({
+  res.json({
     success: true,
-    message: "Order status updated successfully",
-    data: result,
+    message: "Order status updated",
+    data: order,
   });
 };

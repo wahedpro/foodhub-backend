@@ -15,7 +15,7 @@ app.use(cors({origin: "http://localhost:3000",credentials: true,}));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-app.use("/api/v1/provider", providerRoutes);
+app.use("/api/provider", providerRoutes);
 app.use("/api/meals", mealRoutes);
 app.use("/api/providers", providerPublicRoutes);
 app.use("/api/admin", adminPoutes);

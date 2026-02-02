@@ -37,9 +37,23 @@ router.delete(
   ProviderController.deleteMeal
 );
 
-// update the Order status
+// // update the Order status
+// router.patch(
+//   "/orders/:id",
+//   auth,
+//   providerOnly,
+//   ProviderController.updateOrderStatus
+// );
+
+router.get(
+  "/orders",
+  auth,
+  providerOnly,
+  ProviderController.getIncomingOrders
+);
+
 router.patch(
-  "/orders/:id",
+  "/orders/:id/status",
   auth,
   providerOnly,
   ProviderController.updateOrderStatus

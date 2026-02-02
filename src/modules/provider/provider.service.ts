@@ -123,12 +123,78 @@ export const deleteMeal = async (user: any, mealId: string) => {
   });
 };
 
-// update the Order status
+// // update the Order status
+// export const updateOrderStatus = async (
+//   user: any,
+//   orderId: string,
+//   status: OrderStatus
+// ) => {
+//   return prisma.order.update({
+//     where: { id: orderId },
+//     data: { status },
+//   });
+// };
+
+export const getIncomingOrders = async (userId: string) => {
+  const provider = await prisma.providerProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!provider) {
+    throw new Error("Provider profile not found");
+  }
+
+  return prisma.order.findMany({
+    where: {
+      items: {
+        some: {
+          meal: {
+            providerId: provider.id,
+          },
+        },
+      },
+    },
+    include: {
+      customer: {
+        select: { name: true, email: true },
+      },
+      items: {
+        include: {
+          meal: true,
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+};
+
 export const updateOrderStatus = async (
-  user: any,
+  userId: string,
   orderId: string,
-  status: OrderStatus
+  status: "PREPARING" | "READY" | "DELIVERED"
 ) => {
+  const provider = await prisma.providerProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!provider) throw new Error("Provider profile not found");
+
+  // ensure this order belongs to provider
+  const order = await prisma.order.findFirst({
+    where: {
+      id: orderId,
+      items: {
+        some: {
+          meal: {
+            providerId: provider.id,
+          },
+        },
+      },
+    },
+  });
+
+  if (!order) throw new Error("Order not found");
+
   return prisma.order.update({
     where: { id: orderId },
     data: { status },
