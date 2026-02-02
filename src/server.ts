@@ -1,13 +1,20 @@
 import app from "./app";
 import prisma from "./lib/prisma";
 
+const PORT = process.env.PORT || 4000;
+
 async function startServer() {
   try {
     await prisma.$connect();
+    console.log("Database connected successfully");
 
     app.get("/", (_req, res) => {
       res.send("FoodHub backend running on Vercel 🚀");
     });
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    } );
   } catch (error) {
     console.error("Failed to start server:", error);
     process.exit(1);
