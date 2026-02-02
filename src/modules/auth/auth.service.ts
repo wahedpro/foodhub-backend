@@ -49,6 +49,9 @@ export const loginUser = async (payload: any) => {
 
   const user = await prisma.user.findUnique({
     where: { email },
+    include: {
+      providerProfile: true,
+    },
   });
 
   if (!user) {
@@ -77,6 +80,7 @@ export const loginUser = async (payload: any) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      providerProfile: user.providerProfile,
     },
     token,
   };
