@@ -80,8 +80,9 @@ export const loginUser = async (payload: any) => {
       name: user.name,
       email: user.email,
       role: user.role,
-      providerProfile: user.providerProfile,
+      providerProfile: user.providerProfile ?? null,
     },
     token,
   };
 };
+
