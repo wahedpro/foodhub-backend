@@ -20,4 +20,11 @@ router.patch(
   AdminController.updateUserStatus
 );
 
+router.get(
+  "/orders",
+  auth,
+  adminOnly,
+  AdminController.getAllOrders
+);
+
 export default router;

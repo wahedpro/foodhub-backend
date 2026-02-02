@@ -27,3 +27,32 @@ export const updateUserStatus = async (
     data: { isActive },
   });
 };
+
+
+
+export const getAllOrders = async () => {
+  return prisma.order.findMany({
+    orderBy: { createdAt: "desc" },
+    include: {
+      customer: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+      items: {
+        include: {
+          meal: {
+            include: {
+              provider: {
+                select: {
+                  restaurant: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+};

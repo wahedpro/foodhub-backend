@@ -31,3 +31,13 @@ export const updateUserStatus = async (
     data: result,
   });
 };
+
+
+export const getAllOrders = async (req: Request, res: Response) => {
+  const orders = await AdminService.getAllOrders();
+
+  res.json({
+    success: true,
+    data: orders,
+  });
+};

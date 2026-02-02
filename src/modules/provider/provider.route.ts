@@ -59,5 +59,12 @@ router.patch(
   ProviderController.updateOrderStatus
 );
 
+router.get(
+  "/dashboard-stats",
+  auth,
+  providerOnly,
+  ProviderController.getDashboardStats
+);
+
 
 export default router;

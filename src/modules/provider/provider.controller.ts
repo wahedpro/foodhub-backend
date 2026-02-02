@@ -100,3 +100,12 @@ export const updateOrderStatus = async (req: any, res: Response) => {
     data: order,
   });
 };
+
+export const getDashboardStats = async (req: any, res: Response) => {
+  const stats = await ProviderService.getDashboardStats(req.user.id);
+
+  res.json({
+    success: true,
+    data: stats,
+  });
+};

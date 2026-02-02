@@ -200,3 +200,49 @@ export const updateOrderStatus = async (
     data: { status },
   });
 };
+
+export const getDashboardStats = async (userId: string) => {
+  const provider = await prisma.providerProfile.findUnique({
+    where: { userId },
+  });
+
+  if (!provider) {
+    throw new Error("Provider profile not found");
+  }
+
+  const totalMeals = await prisma.meal.count({
+    where: { providerId: provider.id },
+  });
+
+  const pendingOrders = await prisma.order.count({
+    where: {
+      status: { in: ["PLACED", "PREPARING"] },
+      items: {
+        some: {
+          meal: {
+            providerId: provider.id,
+          },
+        },
+      },
+    },
+  });
+
+  const completedOrders = await prisma.order.count({
+    where: {
+      status: "DELIVERED",
+      items: {
+        some: {
+          meal: {
+            providerId: provider.id,
+          },
+        },
+      },
+    },
+  });
+
+  return {
+    totalMeals,
+    pendingOrders,
+    completedOrders,
+  };
+};
