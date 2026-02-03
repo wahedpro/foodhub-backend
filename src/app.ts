@@ -46,7 +46,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://your-frontend.vercel.app", // production
+      "https://foodhub-frontend-nu.vercel.app",
     ],
     credentials: true,
   })
